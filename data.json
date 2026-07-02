@@ -12,12 +12,13 @@
     "date": "2026-07-02",
     "url": "apps/naniga_derukana/index.html",
     "description": "D3.jsを用いた動的グラフ表示のサンプルアプリケーションです。"
-  },
-  {
-    "title": "社内業務ガイドライン",
-    "category": "other",
-    "date": "2025-05-10",
-    "url": "other",
-    "description": "日常業務で参照する手順書および参考資料集です。"
   }
+  // ,
+  // {
+  //   "title": "社内業務ガイドライン",
+  //   "category": "other",
+  //   "date": "2025-05-10",
+  //   "url": "other",
+  //   "description": "日常業務で参照する手順書および参考資料集です。"
+  // }
 ]
