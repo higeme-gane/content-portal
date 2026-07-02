@@ -1,24 +1,24 @@
 [
   {
-    "title": "ビートルズと大人の振り返り",
+    "title": "ようやく気づけた「大人にならなくてもいい」自由",
     "category": "blog",
     "date": "2026-07-02",
     "url": "blog/beatles-adult-reflection.html",
-    "description": "ビートルズの音楽を通じて、成人期の人生を振り返る記事です。"
+    "description": "60年前のビートルズが日本に残してくれたものについて"
   },
   {
-    "title": "地域課題と病院の役割",
+    "title": "みんなで遠くまで、ともに学びながら",
     "category": "blog",
     "date": "2026-06-28",
     "url": "blog/chiiki_kadai.html",
-    "description": "地域包括ケアシステムにおける病院の役割と今後の課題について考察しています。"
+    "description": "船木成記氏（一般社団法人つながりのデザイン代表）の講演の感想です"
   },
   {
-    "title": "医療マネジメントの要点",
+    "title": "これからの病院運営を、少しやわらかく考える",
     "category": "blog",
-    "date": "2026-06-25",
+    "date": "2026-05-31",
     "url": "blog/medi_manage.html",
-    "description": "日常の医療マネジメントで特に重要なポイントをまとめました。"
+    "description": "第28回日本医療マネジメント学会学術総会のレポートです"
   },
   {
     "title": "インタラクティブなデータ可視化デモ",
