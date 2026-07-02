@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンテンツポータル</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .card { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .filter-btn.active { background-color: #1e40af; color: white; border-color: #1e40af; }
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-book text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">コンテンツポータル</h1>
+                    <p class="text-xs text-slate-500 -mt-1">GitHub Pagesで一元管理</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 pt-8 pb-16">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+            <div>
+                <h2 class="text-3xl font-semibold tracking-tight">すべてのコンテンツ</h2>
+                <p id="item-count" class="text-slate-500 mt-1 text-sm">読み込み中...</p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div class="relative flex-1 md:w-72">
+                    <i class="fa-solid fa-search absolute left-4 top-3 text-slate-400"></i>
+                    <input id="search-input" type="text" placeholder="タイトル・説明で検索" 
+                           class="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-300 rounded-2xl text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                
+                <div class="flex gap-2 bg-white p-1 rounded-3xl border border-slate-200 shadow-sm">
+                    <button onclick="filterByCategory('all')" id="filter-all"
+                            class="filter-btn active px-5 py-2 text-sm font-medium rounded-3xl border border-transparent">すべて</button>
+                    <button onclick="filterByCategory('blog')" id="filter-blog"
+                            class="filter-btn px-5 py-2 text-sm font-medium rounded-3xl border border-transparent flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-blog text-blue-600"></i><span>ブログ</span>
+                    </button>
+                    <button onclick="filterByCategory('apps')" id="filter-apps"
+                            class="filter-btn px-5 py-2 text-sm font-medium rounded-3xl border border-transparent flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-laptop-code text-emerald-600"></i><span>アプリ</span>
+                    </button>
+                    <button onclick="filterByCategory('other')" id="filter-other"
+                            class="filter-btn px-5 py-2 text-sm font-medium rounded-3xl border border-transparent">その他</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        
+        <div id="no-results" class="hidden text-center py-16">
+            <i class="fa-solid fa-search text-4xl text-slate-300 mb-4"></i>
+            <p class="text-slate-500">該当するコンテンツが見つかりませんでした。</p>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-400">
+        <p>案3（手動JSON管理）で運用中。将来的に自動化（案2）へ移行可能です。</p>
+    </footer>
+
+    <script>
+        let allItems = [];
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        async function loadData() {
+            try {
+                const res = await fetch('./data.json');
+                if (!res.ok) throw new Error();
+                allItems = await res.json();
+                renderItems();
+            } catch (e) {
+                document.getElementById('content-grid').innerHTML = 
+                    `<div class="col-span-full text-center py-12 text-red-500">data.jsonの読み込みに失敗しました。</div>`;
+            }
+        }
+
+        function formatDate(d) {
+            return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function getCategoryInfo(cat) {
+            const m = {
+                blog:  { label: 'ブログ', color: 'bg-blue-100 text-blue-700', icon: 'fa-blog' },
+                apps:  { label: 'アプリ', color: 'bg-emerald-100 text-emerald-700', icon: 'fa-laptop-code' },
+                other: { label: 'その他', color: 'bg-slate-100 text-slate-600', icon: 'fa-folder' }
+            };
+            return m[cat] || { label: cat, color: 'bg-gray-100 text-gray-600', icon: 'fa-file' };
+        }
+
+        function renderItems() {
+            const grid = document.getElementById('content-grid');
+            const noRes = document.getElementById('no-results');
+            grid.innerHTML = '';
+            noRes.classList.add('hidden');
+
+            let items = [...allItems];
+
+            if (currentSearch) {
+                const q = currentSearch.toLowerCase();
+                items = items.filter(i => 
+                    i.title.toLowerCase().includes(q) || 
+                    (i.description && i.description.toLowerCase().includes(q))
+                );
+            }
+            if (currentFilter !== 'all') {
+                items = items.filter(i => i.category === currentFilter);
+            }
+
+            items.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (items.length === 0) {
+                noRes.classList.remove('hidden');
+                document.getElementById('item-count').textContent = '0件表示中';
+                return;
+            }
+
+            document.getElementById('item-count').textContent = `${items.length}件表示中（最新順）`;
+
+            items.forEach(item => {
+                const info = getCategoryInfo(item.category);
+                const html = `
+                    <div class="card bg-white border border-slate-200 rounded-3xl p-6 flex flex-col h-full shadow-sm">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="category-badge ${info.color} inline-flex items-center gap-x-1">
+                                <i class="fa-solid ${info.icon}"></i> ${info.label}
+                            </span>
+                            <span class="text-xs text-slate-400 font-mono">${formatDate(item.date)}</span>
+                        </div>
+                        <h3 class="font-semibold text-xl leading-tight mb-3">${item.title}</h3>
+                        ${item.description ? `<p class="text-slate-600 text-sm line-clamp-3 flex-grow mb-5">${item.description}</p>` : '<div class="flex-grow"></div>'}
+                        <div class="mt-auto pt-4 border-t border-slate-100">
+                            <a href="${item.url}" target="_blank" 
+                               class="inline-flex items-center justify-center w-full gap-x-2 px-5 py-3 bg-slate-900 hover:bg-black text-white text-sm font-medium rounded-2xl transition-all active:scale-[0.985]">
+                                開く <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+                            </a>
+                        </div>
+                    </div>`;
+                grid.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        function filterByCategory(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
+            const btn = document.getElementById(`filter-${cat}`);
+            if (btn) btn.classList.add('active', 'bg-blue-600', 'text-white');
+            else document.getElementById('filter-all').classList.add('active', 'bg-blue-600', 'text-white');
+            renderItems();
+        }
+
+        function init() {
+            document.getElementById('search-input').addEventListener('input', e => {
+                currentSearch = e.target.value.trim();
+                renderItems();
+            });
+            document.getElementById('filter-all').classList.add('active', 'bg-blue-600', 'text-white');
+            loadData();
+        }
+        window.onload = init;
+    </script>
+</body>
+</html>
