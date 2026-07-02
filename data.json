@@ -1,38 +1,30 @@
 [
   {
-    "title": "サイトリニューアルのお知らせ",
+    "title": "ビートルズと大人の振り返り",
     "category": "blog",
     "date": "2026-07-02",
     "url": "blog/beatles-adult-reflection.html",
-    "description": "ポータルサイトのデザインを刷新しました。最新情報をお届けします。"
+    "description": "ビートルズの音楽を通じて、成人期の人生を振り返る記事です。"
   },
   {
     "title": "地域課題と病院の役割",
     "category": "blog",
     "date": "2026-06-28",
     "url": "blog/chiiki_kadai.html",
-    "description": "地域包括ケアと病院の役割について考察した記事です。"
+    "description": "地域包括ケアシステムにおける病院の役割と今後の課題について考察しています。"
   },
   {
-    "title": "医療マネジメントのポイント",
+    "title": "医療マネジメントの要点",
     "category": "blog",
     "date": "2026-06-25",
     "url": "blog/medi_manage.html",
-    "description": "日常の医療マネジメントで押さえておきたいポイントをまとめました。"
+    "description": "日常の医療マネジメントで特に重要なポイントをまとめました。"
   },
   {
     "title": "インタラクティブなデータ可視化デモ",
     "category": "apps",
     "date": "2026-07-02",
     "url": "apps/naniga_derukana/index.html",
-    "description": "D3.jsを用いた動的グラフ表示のサンプルアプリケーションです。"
+    "description": "D3.jsを用いた動的なグラフ表示のサンプルアプリケーションです。"
   }
-  // ,
-  // {
-  //   "title": "社内業務ガイドライン",
-  //   "category": "other",
-  //   "date": "2025-05-10",
-  //   "url": "other",
-  //   "description": "日常業務で参照する手順書および参考資料集です。"
-  // }
 ]
