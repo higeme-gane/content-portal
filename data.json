@@ -21,10 +21,17 @@
     "description": "第28回日本医療マネジメント学会学術総会のレポートです"
   },
   {
-    "title": "インタラクティブなデータ可視化デモ",
+    "title": "なにがでるかな、医療マネジメント職編",
     "category": "apps",
     "date": "2026-06-29",
     "url": "apps/naniga_derukana/index.html",
-    "description": "D3.jsを用いた動的なグラフ表示のサンプルアプリケーションです。"
+    "description": "なにがでるかなさいころの医療マネ職html版です"
+  },
+  {
+    "title": "DPC6桁コード別 病院別患者数集計ツール（2016-2024）",
+    "category": "apps",
+    "date": "2026-04-03",
+    "url": "https://john-nosuke.shinyapps.io/dpc_csv_generator/",
+    "description": "DPC6桁コードを入力すると、DPC退院患者数が集計されます"
   }
 ]
