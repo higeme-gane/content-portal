@@ -2,14 +2,14 @@
   {
     "title": "ようやく気づけた「大人にならなくてもいい」自由",
     "category": "blog",
-    "date": "2026-07-02",
+    "date": "2026-06-28",
     "url": "blog/beatles-adult-reflection.html",
     "description": "60年前のビートルズが日本に残してくれたものについて"
   },
   {
     "title": "みんなで遠くまで、ともに学びながら",
     "category": "blog",
-    "date": "2026-06-28",
+    "date": "2026-06-14",
     "url": "blog/chiiki_kadai.html",
     "description": "船木成記氏（一般社団法人つながりのデザイン代表）の講演の感想です"
   },
@@ -23,7 +23,7 @@
   {
     "title": "インタラクティブなデータ可視化デモ",
     "category": "apps",
-    "date": "2026-07-02",
+    "date": "2026-06-29",
     "url": "apps/naniga_derukana/index.html",
     "description": "D3.jsを用いた動的なグラフ表示のサンプルアプリケーションです。"
   }
