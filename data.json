@@ -2,22 +2,22 @@
   {
     "title": "サイトリニューアルのお知らせ",
     "category": "blog",
-    "date": "2025-06-15",
-    "url": "blog/2025-06-15-renewal.html",
+    "date": "2026-07-02",
+    "url": "blog/beatles-adult-reflection.html",
     "description": "ポータルサイトのデザインを刷新しました。最新情報をお届けします。"
   },
   {
     "title": "インタラクティブなデータ可視化デモ",
     "category": "apps",
-    "date": "2025-06-20",
-    "url": "apps/data-viz/index.html",
+    "date": "2026-07-02",
+    "url": "apps/naniga_derukana/index.html",
     "description": "D3.jsを用いた動的グラフ表示のサンプルアプリケーションです。"
   },
   {
     "title": "社内業務ガイドライン",
     "category": "other",
     "date": "2025-05-10",
-    "url": "other/internal-guide.html",
+    "url": "other",
     "description": "日常業務で参照する手順書および参考資料集です。"
   }
 ]
